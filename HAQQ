@@ -138,8 +138,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable $HAQQ
 sudo systemctl restart $HAQQ
 
+echo -e "\e[0m"
 echo '=============== Haqq Started ==================='
+echo -e "\e[0m"
 echo -e 'Check logs: \e[1m\e[32mjournalctl -fu haqqd -o cat\e[0m'
 echo -e "Checк sync: \e[1m\e[32mcurl -s localhost:${HAQQ_PORT}657/status | jq .result.sync_info\e[0m"
+echo -e "\e[0m"
 
 source $HOME/.bash_profile
