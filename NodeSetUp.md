@@ -21,7 +21,7 @@
 You can set up your Haqq fullnode in a few minutes using the automated script below. You will be asked for your node name (NODENAME) during the script!
 
 ```bash
-wget -O HAQQ.sh https://raw.githubusercontent.com/nodesblocks/main/Haqq-Network/HAQQ && chmod +x HAQQ.sh && ./HAQQ.sh
+wget -O HAQQ.sh https://raw.githubusercontent.com/NodesBlocks/main/Haqq-Network/HAQQ && chmod +x HAQQ.sh && ./HAQQ.sh
 ```
 ## Post-Installation Steps
 
