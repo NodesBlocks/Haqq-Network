@@ -1,12 +1,12 @@
 #!/bin/bash
 echo "=================================================="
 echo -e "\e[0m"
-echo "-------- Haqq node set up by NodesBlocks --------";
+echo "-------- Haqq node set up by NodesBlocks ---------"
 echo -e "\e[0m"
 echo "=================================================="                                     
 
 
-sleep 2
+sleep 1
 
 # by NodesBlocks
 HAQQ_WALLET=wallet
