@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "=================================================="
-echo "NODESBLOCKS";
+echo -e "\e[0m"
+echo "-------- Haqq node set up by NodesBlocks" --------;
 echo -e "\e[0m"
 echo "=================================================="                                     
 
