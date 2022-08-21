@@ -1,2 +1,0 @@
-# Haqq-Network
-Islamic Coin 
