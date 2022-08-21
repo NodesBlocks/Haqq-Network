@@ -56,14 +56,12 @@ echo '================================================='
 
 sleep 2
 
-
-echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
 sudo apt update && sudo apt upgrade -y
 
-echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
 
-echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+sleep 1
+
 ver="1.18.2"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
@@ -76,7 +74,6 @@ go version
 
 sleep 1
 
-echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
 cd $HOME
 git clone -b $HAQQ_VER $HAQQ_REPO
 cd $HAQQ_FOLDER2
@@ -84,7 +81,6 @@ make install
 
 sleep 1
 
-echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
 $HAQQ config chain-id $HAQQ_ID
 $HAQQ config keyring-backend file
 $HAQQ init $HAQQ_NODENAME --chain-id $HAQQ_ID
@@ -122,7 +118,6 @@ sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$HAQQ_FOLDER/config/co
 
 $HAQQ tendermint unsafe-reset-all --home $HOME/$HAQQ_FOLDER
 
-echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
 # create service
 sudo tee /etc/systemd/system/$HAQQ.service > /dev/null <<EOF
 [Unit]
@@ -144,7 +139,7 @@ sudo systemctl enable $HAQQ
 sudo systemctl restart $HAQQ
 
 echo '=============== Haqq Started ==================='
-echo -e '\e[1m\e[32mjjournalctl -fu haqqd -o cat\e[0m'
+echo -e '\e[1m\e[32mjournalctl -fu haqqd -o cat\e[0m'
 echo -e "\e[1m\e[32mcurl -s localhost:${HAQQ_PORT}657/status | jq .result.sync_info\e[0m"
 
 source $HOME/.bash_profile
