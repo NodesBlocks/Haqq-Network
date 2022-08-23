@@ -139,7 +139,7 @@ break
 ;;
 
 "Sync via stateSync")
-SNAP_RPC=78.46.16.236:41657
+SNAP_RPC="http://65.108.206.56:39658"
 peers="e15e1867f68011f80f2763e6691c89c923bf2f24@78.46.16.236:41656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.haqqd/config/config.toml
 
