@@ -29,14 +29,11 @@ You should make sure your validator syncs blocks. You can use the following comm
 ```bash
 haqqd status 2>&1 | jq .SyncInfo
 ```
-## Creating a Wallet
-You can use the following command to create a new wallet. Do not forget to save the reminder (mnemonic).
+## Recover a Wallet
+
+To recover your wallet using mnemonic:
 ```bash
-haqqd keys add $HAQQ_WALLET
-```
-(OPTIONAL) To recover your wallet using mnemonic:
-```bash
-haqqd keys add $HAQQ_WALLET --recover
+haqqd keys add $WALLETNAME --recover
 ```
 To get the current wallet list
 ```bash
@@ -46,34 +43,31 @@ haqqd keys list
 
 Add Wallet Address:
 ```bash
-HAQQ_WALLET_ADDRESS=$(haqqd keys show $HAQQ_WALLET -a)
-HAQQ_VALOPER_ADDRESS=$(haqqd keys show $HAQQ_WALLET --bech val -a)
-echo 'export HAQQ_WALLET_ADDRESS='${HAQQ_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export HAQQ_VALOPER_ADDRESS='${HAQQ_VALOPER_ADDRESS} >> $HOME/.bash_profile
+WALLET_ADDRESS=$(haqqd keys show $WALLETNAME -a)
+VALOPER_ADDRESS=$(haqqd keys show $WALLETNAME --bech val -a)
+echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
-## Create validator
+## Edit validator
 
 Before creating a validator please make sure you have at least 1 ISLM (1 ISLM equals 1000000 aISLM) and your node is in sync.
 
 To check your wallet balance
 ```bash
-haqqd query bank balances $HAQQ_WALLET_ADDRESS
+haqqd query bank balances $WALLETNAME
 ```
 If you can't see your balance in your wallet, chances are your node is still syncing. Please wait for the sync to finish and then continue
 
-Creating a Validator:
+Edit a Validator:
 ```bash
-haqqd tx staking create-validator \
-  --amount 1000000aISLM \
-  --from $HAQQ_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(haqqd tendermint show-validator) \
-  --moniker $HAQQ_NODENAME \
-  --chain-id $HAQQ_ID \
+haqqd tx staking edit-validator \
+  --details "Details about your validator" \
+  --website "Your website" \
+  --identity "You can find it on keybase.io" \
+  --security-contact "Your e-mail" \
+  --moniker $NODENAME \
+  --chain-id $CHAIN_ID \
   --fees 250aISLM
 ```
 # Useful Commands
@@ -122,57 +116,48 @@ haqqd keys list
 ```
 Recover wallet using Mnemonic:
 ```bash
-haqqd keys add $HAQQ_WALLET --recover
+haqqd keys add $WALLETNAME --recover
 ```
 Wallet Delete:
 ```bash
-haqqd keys delete $HAQQ_WALLET
+haqqd keys delete $WALLETNAME
 ```
 Show Wallet Balance:
 ```bash
-haqqd query bank balances $HAQQ_WALLET_ADDRESS
+haqqd query bank balances $WALLETNAME
 ```
 Transfer tokens between wallets:
 ```bash
-haqqd tx bank send $HAQQ_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000aISLM
+haqqd tx bank send $WALLETNAME <TO_WALLET_ADDRESS> 10000000aISLM
 ```
 ***Voting***
 ```bash
-haqqd tx gov vote 1 yes --from $HAQQ_WALLET --chain-id=$HAQQ_ID
+haqqd tx gov vote 1 yes --from $WALLETNAME --chain-id=$CHAIN_ID
 ```
 ***Stake, Delegation and Rewards***
 
 Delegate Process:
 ```bash
-haqqd tx staking delegate $HAQQ_VALOPER_ADDRESS 10000000aISLM --from=$HAQQ_WALLET --chain-id=$HAQQ_ID --gas=auto --fees 250aISLM
+haqqd tx staking delegate $VALOPER_ADDRESS 10000000aISLM --from=$WALLETNAME --chain-id=$CHAIN_ID --gas=auto --fees 250aISLM
 ```
 Redelegate from validator to another validator:
 ```bash
-haqqd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000aISLM --from=$HAQQ_WALLET --chain-id=$HAQQ_ID --gas=auto --fees 250aISLM
+haqqd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000aISLM --from=$WALLETNAME --chain-id=$CHAIN_ID --gas=auto --fees 250aISLM
 ```
 Withdraw all rewards:
 ```bash
-haqqd tx distribution withdraw-all-rewards --from=$HAQQ_WALLET --chain-id=$HAQQ_ID --gas=auto --fees 250aISLM
+haqqd tx distribution withdraw-all-rewards --from=$WALLETNAME --chain-id=$CHAIN_ID --gas=auto --fees 250aISLM
 ```
 Withdraw rewards with commission:
 ```bash
-haqqd tx distribution withdraw-rewards $HAQQ_VALOPER_ADDRESS --from=$HAQQ_WALLET --commission --chain-id=$HAQQ_ID
-```
-***Validator Management***
-
-Change Validator Name:
-```bash
-haqqd tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$HAQQ_ID \
---from=$HAQQ_WALLET
+haqqd tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLETNAME --commission --chain-id=$CHAIN_ID
 ```
 Get Out Of Jail(Unjail):
 ```bash
 haqqd tx slashing unjail \
   --broadcast-mode=block \
-  --from=$HAQQ_WALLET \
-  --chain-id=$HAQQ_ID \
+  --from=$WALLETNAME \
+  --chain-id=$CHAIN_ID \
   --gas=auto --fees 250aISLM
 ```
 To Delete Node Completely:
@@ -185,24 +170,3 @@ sudo rm $HOME/.haqqd* -rf
 sudo rm $HOME/haqq -rf
 sed -i '/HAQQ_/d' ~/.bash_profile
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
