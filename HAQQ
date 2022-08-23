@@ -22,7 +22,7 @@ options=(
 "Install node"
 "Check logs"
 "Check balance"
-"Sync via StateSync"
+"Sync via stateSync"
 "Request tokens"
 "Create validator"
 "Exit")
@@ -30,7 +30,7 @@ select opt in "${options[@]}"
 do
 case $opt in
 
-"Install Node")
+"Install node")
 echo "============================================================"
 echo "Your Node Name:"
 echo "============================================================"
@@ -125,7 +125,7 @@ sudo systemctl restart haqqd
 break
 ;;
 
-"Check Log")
+"Check logs")
 
 journalctl -u haqqd -f -o cat
 
@@ -138,7 +138,7 @@ haqqd q bank balances $(haqqd keys show $WALLETNAME -a --bech acc)
 break
 ;;
 
-"Synchronization via StateSync")
+"Sync via stateSync")
 SNAP_RPC=78.46.16.236:41657
 peers="e15e1867f68011f80f2763e6691c89c923bf2f24@78.46.16.236:41656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.haqqd/config/config.toml
@@ -162,7 +162,7 @@ systemctl restart haqqd && journalctl -u haqqd -f -o cat
 break
 ;;
 
-"Create Validator")
+"Create validator")
 haqqd tx staking create-validator \
   --amount 1000000000000000000aISLM \
   --from $WALLETNAME \
