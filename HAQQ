@@ -14,11 +14,12 @@ echo "/_/|_/\___/\_,_/\__/___/____/_/\___/\__/_/\_\/___/";
 echo "                                                  ";
 echo -e "\e[0m"
 echo "=================================================="  
-
-echo -e '\e[36mAuthor :\e[39m'  NodesBlocks
-echo -e '\e[36mWebsite :\e[39m' https://nodesblocks.dev
-echo -e '\e[36mTwitter :\e[39m' https://twitter.com/nodesblocks
-echo -e '\e[36mGithub :\e[39m'  https://github.com/NodesBlocks
+echo -e "\e[0m"
+echo -e '\e[36mAuthor:\e[39m'  NodesBlocks
+echo -e '\e[36mWebsite:\e[39m' https://nodesblocks.dev
+echo -e '\e[36mTwitter:\e[39m' https://twitter.com/nodesblocks
+echo -e '\e[36mGithub:\e[39m'  https://github.com/NodesBlocks
+echo -e "\e[0m"
 
 # Menu
 
